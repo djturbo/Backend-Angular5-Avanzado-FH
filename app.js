@@ -1,6 +1,12 @@
 // Requires
-var express = require("express");
-var mongoose = require('mongoose');
+const express = require("express");
+const mongoose = require('mongoose');
+// Routes
+const appRoute = require('./routes/index.routes');
+const userRoutes = require('./routes/user.routes');
+const authRoutes = require('./routes/auth.routes');
+
+const bodyParser = require('body-parser');
 
 // Constants
 var port = process.env.PORT || 1111;
@@ -8,13 +14,18 @@ var port = process.env.PORT || 1111;
 // Inicializar variables
 var app = express();
 
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }));
 
+// parse application/json
+app.use(bodyParser.json());
 
 // Rutas
-app.get("/", (req, res, next) => {
-    res.status(200).json({ ok: true, message: "Hello world" });
-});
-
+app.use('/', appRoute);
+/** api/user */
+app.use('/api/user', userRoutes);
+/** auth */
+app.use('/auth', authRoutes);
 
 
 // Conectar a la base de datos
