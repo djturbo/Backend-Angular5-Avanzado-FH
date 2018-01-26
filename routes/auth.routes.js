@@ -1,12 +1,14 @@
-'use strict';
+(function() {
+    'use strict';
 
-const express = require('express');
-const authController = require('../controller/auth.controller');
+    const express = require('express');
+    const authController = require('../controller/auth.controller');
 
-const authRouter = express.Router();
+    const authRouter = express.Router();
 
-authRouter.post('/login', authController.login);
-authRouter.post('/logout', authController.logout);
+    authRouter.post('/login', authController.login);
+    authRouter.post('/logout', authController.logout);
 
 
-module.exports = authRouter;
+    module.exports = authRouter;
+})();

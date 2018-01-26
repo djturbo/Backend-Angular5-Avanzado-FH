@@ -15,7 +15,7 @@ var userSchema = new Schema({
     surname: { type: String, required: [true, 'El Apellido es requerido'] },
     email: { type: String, required: [true, 'El correo electrónico es requerido'], unique: true },
     password: { type: String, required: [true, 'La contraseña es requerido'] },
-    img: { type: String },
+    image: { type: String },
     role: { type: String, required: true, default: 'USER_ROLE', enum: rolesValidos }
 
 });

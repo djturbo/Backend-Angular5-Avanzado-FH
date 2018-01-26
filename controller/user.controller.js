@@ -3,7 +3,7 @@
 const bcrypt = require('bcrypt');
 const TAG = 'user.controller.js :: ';
 const USERS_IMAGE_DIR = './uploads/users/';
-const COLUMNS = 'name surname email img role';
+const COLUMNS = 'name surname email image role';
 // const logger = require('../log4js.configuration');
 
 /* MODULOS */
@@ -15,12 +15,16 @@ const User = require('../model/user.model');
 
 /* Servicios */
 
-
 /* ACTIONS */
 function findAll(req, res) {
-
+    var from = req.query.from || 0;
+    from = Number(from);
+    var size = req.query.size || 5;
+    size = Number(size);
 
     User.find({}, COLUMNS)
+        .skip(from)
+        .limit(size)
         .exec((err, success) => {
             if (err) {
                 res.status(500).json({
@@ -29,9 +33,12 @@ function findAll(req, res) {
                     error: err
                 });
             } else {
-                res.status(200).json({
-                    ok: true,
-                    users: success
+                User.count({}, (err, size) => {
+                    res.status(200).json({
+                        ok: true,
+                        users: success,
+                        count: size
+                    });
                 });
             }
         });
@@ -41,7 +48,6 @@ function findAll(req, res) {
 // CREATE USER
 // =======================================================
 function create(req, res) {
-
     var body = req.body;
 
     var user = new User({
@@ -67,7 +73,6 @@ function create(req, res) {
             });
         }
     });
-
 }
 
 // =======================================================
@@ -112,11 +117,9 @@ function update(req, res) {
                         });
                     }
                 });
-
             }
         }
     });
-
 }
 // =======================================================
 // DELTE
@@ -131,7 +134,6 @@ function remove(req, res) {
                 errors: err
             });
         } else {
-
             res.status(200).json({
                 ok: true,
                 user: success

@@ -1,11 +1,13 @@
-'use strict';
+(function() {
+    'use strict';
 
-const express = require('express');
+    const express = require('express');
 
-const appRoute = express.Router();
+    const appRoute = express.Router();
 
-appRoute.get("/", (req, res, next) => {
-    res.status(200).json({ ok: true, message: "Hello world" });
-});
+    appRoute.get("/", (req, res, next) => {
+        res.status(200).json({ ok: true, message: "Hello world" });
+    });
 
-module.exports = appRoute;
+    module.exports = appRoute;
+})();
