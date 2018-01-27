@@ -7,6 +7,7 @@
     const authRouter = express.Router();
 
     authRouter.post('/login', authController.login);
+    authRouter.post('/oauth', authController.oauth);
     authRouter.post('/logout', authController.logout);
 
 
