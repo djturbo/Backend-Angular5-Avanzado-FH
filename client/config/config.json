@@ -1,6 +1,6 @@
 {
     "API": {
-        "HOST": "http://localhost:1111",
+        "HOST": "http://localhost:1112",
         "CONTEXT": {
             "USER": "/api/user",
             "HOSPITAL": "/api/hospital",

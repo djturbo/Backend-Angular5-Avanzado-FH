@@ -23,7 +23,7 @@ const imageRoutes = require('./routes/image.routes');
 const bodyParser = require('body-parser');
 
 // Constants
-var port = process.env.PORT || 1111;
+var port = process.env.PORT || 1112;
 
 // Inicializar variables
 var app = express();
