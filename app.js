@@ -83,7 +83,7 @@ app.use((req, res, next) => {
 // =====================================
 // Rutas
 // =====================================
-app.use('/', appRoute);
+app.use('/', express.static('client', { redirect: false }));
 /** api/user */
 app.use('/api/user', userRoutes);
 /** auth */
@@ -99,6 +99,12 @@ app.use('/api/upload', uploadRoutes);
 /** images */
 app.use('/api/image', imageRoutes);
 
+/** Router dentro de la app de angular */
+app.get('*', function(req, res) {
+    console.log('**** redirect to ', path.resolve('client/index.html'));
+    /** rutas dentro de la app */
+    res.sendFile(path.resolve('client/index.html'));
+});
 // Conectar a la base de datos
 mongoose.connection.openUri(
     'mongodb://localhost:27017/hospitalDB',
