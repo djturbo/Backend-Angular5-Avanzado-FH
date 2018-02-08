@@ -25,7 +25,7 @@
         size = Number(size);
 
         Hospital.find({}, COLUMNS)
-            .populate('user', 'name email')
+            .populate('User', '_id name email')
             .limit(size)
             .skip(from)
             .exec((err, success) => {
@@ -42,6 +42,29 @@
                             hospitales: success,
                             count: size
                         });
+                    });
+                }
+            });
+    }
+    // =====================================
+    // FIND ONE HOSPITAL
+    // =====================================
+    function findOne(req, res) {
+        const id = req.params.id;
+
+        Hospital.findById(id, COLUMNS)
+            .populate('User', '_id name surname email image')
+            .exec((err, success) => {
+                if (err) {
+                    res.status(500).json({
+                        ok: false,
+                        message: 'Error obteniendo hospital.',
+                        error: err
+                    });
+                } else {
+                    res.status(200).json({
+                        ok: true,
+                        hospital: success
                     });
                 }
             });
@@ -66,7 +89,7 @@
                     error: err
                 });
             } else {
-                res.status(201).json({
+                res.status(200).json({
                     ok: true,
                     hospital: success
                 });
@@ -78,7 +101,7 @@
     // UPDATE
     // =======================================================
     function update(req, res) {
-        const idHospital = req.params['id'];
+        const idHospital = req.params.id;
         Hospital.findById(idHospital, (err, success) => {
             if (err) {
                 res.status(500).json({
@@ -139,6 +162,7 @@
     }
     module.exports = {
         findAll,
+        findOne,
         create,
         update,
         remove

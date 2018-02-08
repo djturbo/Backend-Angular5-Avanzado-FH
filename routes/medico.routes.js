@@ -1,14 +1,17 @@
-'use strict'
+(function() {
+    'use strict';
 
-const express = require('express');
-const medicoController = require('../controller/medico.controller');
-const authMidleware = require('../midleware/authenticate.midleware');
+    const express = require('express');
+    const medicoController = require('../controller/medico.controller');
+    const authMidleware = require('../midleware/authenticate.midleware');
 
-const medicoRoutes = express.Router();
+    const medicoRoutes = express.Router();
 
-medicoRoutes.get('/', medicoController.findAll);
-medicoRoutes.post('/', [authMidleware.ensureAuth], medicoController.create);
-medicoRoutes.put('/:id', [authMidleware.ensureAuth], medicoController.update);
-medicoRoutes.delete('/:id', [authMidleware.ensureAuth], medicoController.remove);
+    medicoRoutes.get('/', medicoController.findAll);
+    medicoRoutes.get('/:id', medicoController.findOne);
+    medicoRoutes.post('/', [authMidleware.ensureAuth], medicoController.create);
+    medicoRoutes.put('/:id', [authMidleware.ensureAuth], medicoController.update);
+    medicoRoutes.delete('/:id', [authMidleware.ensureAuth], medicoController.remove);
 
-module.exports = medicoRoutes;
+    module.exports = medicoRoutes;
+})();

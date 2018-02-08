@@ -122,7 +122,7 @@
     // =============================================
     function searchUsers(toSearch, regex) {
         return new Promise((resolve, reject) => {
-            User.find({}, 'name surname email role')
+            User.find({}, 'name surname email role image google_signed')
                 .or([{ name: regex }, { email: regex }, { surname: regex }])
                 .exec((err, users) => {
                     if (err) {

@@ -16,6 +16,30 @@
     /* ACTIONS */
 
     // =====================================
+    // FIND MEDICO BY ID
+    // =====================================
+    function findOne(req, res) {
+        const id = req.params.id;
+        console.log('id medico: ', id);
+        Medico.findById(id)
+            .populate({ path: 'user', select: 'name _id email surname image' })
+            .populate({ path: 'hospital', select: 'name _id image' })
+            .exec((err, medico) => {
+                if (err) {
+                    res.status(500).json({
+                        ok: false,
+                        message: 'Error obteniendo medicos.',
+                        error: err
+                    });
+                } else {
+                    res.status(200).json({
+                        ok: true,
+                        medico: medico
+                    });
+                }
+            });
+    }
+    // =====================================
     // FIND ALL MEDICOS
     // =====================================
     function findAll(req, res) {
@@ -24,9 +48,9 @@
         var rowSize = req.query.size || 5;
         rowSize = Number(rowSize);
 
-        Medico.find({}, COLUMNS)
-            .populate('user', 'name, email')
-            .populate('hospital')
+        Medico.find({})
+            .populate('User')
+            .populate('Hospital')
             .skip(from)
             .limit(rowSize)
             .exec((err, success) => {
@@ -143,6 +167,7 @@
     }
     module.exports = {
         findAll,
+        findOne,
         create,
         update,
         remove

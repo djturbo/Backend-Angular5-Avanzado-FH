@@ -1,0 +1,52 @@
+{
+    "API": {
+        "HOST": "http://localhost:1111",
+        "CONTEXT": {
+            "USER": "/api/user",
+            "HOSPITAL": "/api/hospital",
+            "MEDICO": "/api/medico",
+            "AUTH": "/auth",
+            "SEARCH": "/api/search",
+            "UPLOAD": "/api/upload",
+            "IMAGE": "/api/image"
+        },
+        "ENDPOINT": {
+            "AUTH": {
+                "LOGIN": "/login",
+                "GOOGLE_SIGN_IN": "/oauth",
+                "REFRESH": "/refresh"
+            },
+            "USER": {
+                "FIND_ALL": "/",
+                "FIND_ONE": "/one",
+                "CREATE": "/",
+                "UPDATE": "/",
+                "DELETE": "/"
+            },
+            "HOSPITAL": {
+                "FIND_ALL": "/",
+                "FIND_ONE": "/one",
+                "CREATE": "/",
+                "UPDATE": "/",
+                "DELETE": "/"
+            },
+            "MEDICO": {
+                "FIND_ALL": "/",
+                "FIND_ONE": "/",
+                "CREATE": "/",
+                "UPDATE": "/",
+                "DELETE": "/"
+            },
+            "SEARCH": {
+                "FIND_IN_ALL": "/",
+                "FIND_BY_COLLECTION": "/"
+            },
+            "UPLOAD": {
+                "FILE": "/"
+            },
+            "IMAGE": {
+                "GET_IMAGE": "/"
+            }
+        }
+    }
+}

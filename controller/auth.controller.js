@@ -37,6 +37,7 @@
                             ok: true,
                             message: 'Log in is working',
                             user: success,
+                            menu: getMenu(success.role),
                             token: token
                         });
                     } else {
@@ -63,7 +64,21 @@
     // =============================================
     // LOG OUT
     // =============================================
-
+    function renewToken(req, res) {
+        if (req.token) {
+            res.status(200).json({
+                ok: true,
+                message: 'Token renovado correctamente',
+                token: req.token
+            });
+        } else {
+            req.status(401).json({
+                ok: false,
+                message: 'Token not avalible',
+                error: 'Token unavalible'
+            });
+        }
+    }
     // =============================================
     // O-AUTH-GOOGLE
     // =============================================
@@ -99,7 +114,8 @@
                                 password: ':)',
                                 role: 'USER_ROLE',
                                 google_signed: true,
-                                image: payload.picture
+                                image: payload.picture,
+                                menu: getMenu('USER_ROLE')
 
                             });
                             user.save((err, success) => {
@@ -115,7 +131,8 @@
                                         ok: true,
                                         message: 'Usuario creado correctamente.',
                                         user: success,
-                                        token: token
+                                        token: token,
+                                        menu: getMenu(success.role)
                                     });
                                 }
                             });
@@ -129,6 +146,7 @@
                                     ok: true,
                                     message: 'Log in is working',
                                     user: found,
+                                    menu: getMenu(found.role),
                                     token: token
                                 });
                             }
@@ -145,6 +163,10 @@
     // END O-AUTH-GOOGLE
     // =============================================
 
+    // =============================================
+    // RENUEVA TOKEN
+    // =============================================
+
 
 
 
@@ -156,9 +178,37 @@
         });
     }
 
+    function getMenu(role) {
+        const menu = [{
+                title: 'Principal',
+                icon: 'mdi mdi-gauge',
+                submenu: [
+                    { title: 'Dashboard', url: '/dashboard' },
+                    { title: 'ProgressBar', url: '/progress' },
+                    { title: 'Gráficas', url: '/graficas' },
+                    { title: 'Promesas', url: '/promesas' },
+                    { title: 'RXJS', url: '/rxjs' }
+                ]
+            },
+            {
+                title: 'Mantenimiento',
+                icon: 'mdi mdi-folder-lock-open',
+                submenu: [
+                    { title: 'Hospitales', url: '/hospitals' },
+                    { title: 'Médicos', url: '/doctors' }
+                ]
+            }
+        ];
+        if (role === 'ADMIN_ROLE') {
+            menu[1].submenu.unshift({ title: 'Usuarios', url: '/users' });
+        }
+        return menu;
+    }
+
     module.exports = {
         login,
         logout,
+        renewToken,
         oauth
     }
 })();
