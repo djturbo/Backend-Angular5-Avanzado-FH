@@ -1,6 +1,6 @@
 {
     "API": {
-        "HOST": "http://localhost:1112",
+        "HOST": "http://adminpro.fjarquellada.es",
         "CONTEXT": {
             "USER": "/api/user",
             "HOSPITAL": "/api/hospital",

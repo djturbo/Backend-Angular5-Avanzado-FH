@@ -13,7 +13,7 @@
 
     var userSchema = new Schema({
         name: { type: String, required: [true, 'El nombre es requerido'] },
-        surname: { type: String, required: [true, 'El Apellido es requerido'] },
+        surname: { type: String },
         email: { type: String, required: [true, 'El correo electrónico es requerido'], unique: true },
         password: { type: String, required: [true, 'La contraseña es requerido'] },
         image: { type: String },
